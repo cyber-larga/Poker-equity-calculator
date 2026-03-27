@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Poker Range Analyzer — Analyseur de ranges poker avec calcul d'equity Monte Carlo, analyse de texture du board, et suggestions d'action.">
+    <title>Poker Range Analyzer</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+
+<body>
+
+    <div class="app-container">
+        <!-- ═══ Header ═══ -->
+    <div class="header">
+        <div>
+            <h1>🃏 Poker Range Analyzer</h1>
+        </div>
+        <div style="display: flex; align-items: center;">
+            <button class="btn clear-btn" onclick="clearAll()" style="margin-right: 12px; font-weight: 600;">🗑 Tout effacer</button>
+            <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()">☀️ Light</button>
+        </div>
+    </div>
+
+        <!-- ═══ Main Layout ═══ -->
+        <div class="main-layout">
+
+            <!-- ── Hero Section ── -->
+            <div class="range-section hero-section">
+                <div class="section-title">
+                    🎯 Hero
+                    <div class="mode-btn-group">
+                        <button class="mode-btn active" id="heroModeRange"
+                            onclick="setMode('hero', 'range')">Range</button>
+                        <button class="mode-btn" id="heroModeHand" onclick="setMode('hero', 'hand')">Main</button>
+                    </div>
+                </div>
+
+                <!-- Range controls -->
+                <div class="range-controls">
+                    <button class="btn small" onclick="selectPresetRange('hero', 'premium')">QQ+,AK</button>
+                    <button class="btn small" onclick="selectPresetRange('hero', 'value')">JJ+,AQ+</button>
+                    <button class="btn small" onclick="selectPresetRange('hero', 'broadways')">Broadways</button>
+                    <button class="btn small" onclick="selectPresetRange('hero', 'suited_connectors')">Connecteurs
+                        Assortis</button>
+                    <button class="btn small" onclick="selectPresetRange('hero', 'pp')">PP</button>
+                    <button class="btn small" onclick="selectPresetRange('hero', 'all')">Tout</button>
+                    <button class="btn small clear-btn" onclick="clearRange('hero')">✕ Clear</button>
+                </div>
+
+                <!-- Position presets -->
+                <div class="range-controls position-presets" id="heroPositionContainer">
+                    <!-- Généré dynamiquement par JS -->
+                </div>
+
+                <!-- Range import/export -->
+                <div class="range-import-export">
+                    <div class="import-row">
+                        <input type="text" id="heroRangeImport" class="range-text-input"
+                            placeholder="AA, KK, AKs, QQ+, 88-TT..." onfocus="showExportInInput('hero')">
+                        <button class="btn small" onclick="importRange('hero')" title="Importer">📥</button>
+                        <button class="btn small" id="heroExportBtn" onclick="exportRangeToClipboard('hero')"
+                            title="Copier range">📋</button>
+                    </div>
+                </div>
+
+                <!-- Range matrix (default mode) -->
+                <div id="heroMatrixSection">
+                    <div class="range-matrix" id="heroMatrix"></div>
+                    <!-- Hotness button -->
+                    <div style="text-align:center; margin-top:4px;">
+                        <button class="btn small" id="heroHotnessBtn" onclick="toggleHotness('hero')"
+                            title="Afficher l'effet de retrait de chaque main">🔥 Hotness</button>
+                    </div>
+                </div>
+
+                <!-- Specific hand mode (hidden by default) -->
+                <div id="heroSpecificHand" style="display:none;">
+                    <div class="specific-hand-panel">
+                        <div class="specific-hand-display" id="heroHandDisplay">
+                            <span style="color:var(--text-faint);">Sélectionnez 2 cartes</span>
+                        </div>
+                        <div class="specific-hand-grid" id="heroHandGrid"></div>
+                        <div style="text-align:center; margin-top:8px;">
+                            <label class="blocker-toggle"
+                                title="Quand actif, vos 2 cartes bloquent automatiquement les combos adverses qui les contiennent (effet bloqueur)."
+                                onclick="toggleBlocker('hero')">
+                                <input type="checkbox" id="heroBlockerCheckbox" onclick="event.stopPropagation()"
+                                    onchange="toggleBlocker('hero')" style="pointer-events:none;">
+                                <span id="heroBlockerLabel">🔒 Bloqueur actif</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="range-slider-container">
+                    <input type="range" id="heroSlider" class="range-slider" min="0" max="100" value="0"
+                        oninput="updateRangeBySlider('hero', this.value)">
+                    <div class="slider-label">
+                        <span>0%</span>
+                        <span id="heroSliderValue">0%</span>
+                        <span>100%</span>
+                    </div>
+                </div>
+
+                <div class="range-info">
+                    <div class="range-info-item">
+                        <span>Combos:</span>
+                        <span class="range-info-value" id="heroCombos">0</span>
+                    </div>
+                    <div class="range-info-item">
+                        <span>% des mains:</span>
+                        <span class="range-info-value" id="heroPercent">0%</span>
+                    </div>
+                </div>
+
+                <div class="stats-section">
+                    <div class="stats-tabs">
+                        <button class="stats-tab active" onclick="switchStatsTab(event, 'hero', 'stats')">📊
+                            Stats</button>
+                        <button class="stats-tab" onclick="switchStatsTab(event, 'hero', 'graph')">📈 Graphique</button>
+                    </div>
+                    <div class="stats-content active" id="heroStatsContent">
+                        <div class="stats-title"
+                            style="display:flex; align-items:center; justify-content:space-between;">
+                            <span>Composition de la range</span>
+                            <button id="heroChartSortBtn" class="chart-sort-btn" onclick="toggleChartSort('hero')">🔀
+                                Trier par %</button>
+                        </div>
+                        <div class="stats-grid" id="heroStats">
+                            <div style="padding: 10px; text-align: center; color: var(--text-faint);">Sélectionnez une
+                                range et un board</div>
+                        </div>
+                    </div>
+                    <div class="stats-content" id="heroGraphContent">
+                        <div class="chart-container">
+                            <canvas id="heroChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="heroCombosDisplay" class="combos-display"></div>
+            </div>
+
+            <!-- ── Board Section ── -->
+            <div>
+                <div class="board-section">
+                    <div class="section-title" style="display:flex; justify-content:space-between; align-items:center;">
+                        <span>🃏 Board</span>
+                        <div class="board-nav-arrows" style="display:flex; gap:8px;">
+                            <button id="boardArrowPrev" class="btn small disabled" onclick="stepBackBoard()"
+                                title="Reculer d'une carte (Turn -> Flop)"
+                                style="padding:4px 8px; font-size:14px; background:var(--bg-app); border-color:var(--border-main); color:var(--text-primary);">◀</button>
+                            <button id="boardArrowNext" class="btn small disabled" onclick="stepForwardBoard()"
+                                title="Avancer d'une carte"
+                                style="padding:4px 8px; font-size:14px; background:var(--bg-app); border-color:var(--border-main); color:var(--text-primary);">▶</button>
+                        </div>
+                    </div>
+                    <div class="board-cards-display" id="boardDisplay">
+                        <div style="color: #ccc; font-size: 14px;">Sélectionnez les cartes du board</div>
+                    </div>
+                    <div id="boardTexture"
+                        style="display: none; background: var(--bg-input); padding: 10px; border-radius: 4px; margin-bottom: 12px; font-size: 12px; line-height: 1.8;">
+                    </div>
+
+                    <div class="card-selector-organized">
+                        <div class="suit-group">
+                            <div class="suit-title spades">♠</div>
+                            <div class="suit-cards" id="spades"></div>
+                        </div>
+                        <div class="suit-group">
+                            <div class="suit-title hearts">♥</div>
+                            <div class="suit-cards" id="hearts"></div>
+                        </div>
+                        <div class="suit-group">
+                            <div class="suit-title diamonds">♦</div>
+                            <div class="suit-cards" id="diamonds"></div>
+                        </div>
+                        <div class="suit-group">
+                            <div class="suit-title clubs">♣</div>
+                            <div class="suit-cards" id="clubs"></div>
+                        </div>
+                    </div>
+
+                    <button class="btn" style="width: 100%; margin-top: 10px;" onclick="clearBoard()">🗑 Effacer le
+                        Board</button>
+                </div>
+
+                <!-- Dead Cards (collapsible) -->
+                <details class="dead-cards-section">
+                    <summary class="dead-cards-summary">💀 Cartes mortes (<span id="deadCardsCount">0</span>)</summary>
+                    <div class="dead-cards-grid" id="deadCardsGrid"></div>
+                    <button class="btn" style="width: 100%; margin-top: 8px;" onclick="clearDeadCards()">🗑
+                        Effacer</button>
+                </details>
+
+                <!-- Equity Section -->
+                <div class="equity-section">
+                    <div class="section-title">⚡ Equity</div>
+                    <div class="equity-display">
+                        <div class="equity-box hero">
+                            <div class="equity-label">HERO</div>
+                            <div class="equity-value" id="heroEquity">-%</div>
+                        </div>
+                        <div class="equity-box villain">
+                            <div class="equity-label">VILLAIN</div>
+                            <div class="equity-value" id="villainEquity">-%</div>
+                        </div>
+                    </div>
+                    <div class="equity-bar">
+                        <div class="equity-bar-hero" id="heroEquityBar" style="width: 50%;">50%</div>
+                        <div class="equity-bar-villain" id="villainEquityBar" style="width: 50%;">50%</div>
+                    </div>
+                    <div id="actionSuggestion"
+                        style="display: none; margin-top: 10px; padding: 12px; border-radius: 6px; border-left: 4px solid; background: var(--bg-input); font-size: 12px; line-height: 1.5;">
+                    </div>
+
+                    <!-- Equity Evolution (Turn/River) -->
+                    <div style="margin-top:12px; text-align:center;">
+                        <button class="btn" onclick="runEquityEvolution()" style="width:100%;">📈 Évolution Flop → Turn
+                            → River</button>
+                    </div>
+                    <div id="equityEvoContainer" style="display:none; margin-top:12px;">
+                        <div style="height:200px; position:relative;">
+                            <canvas id="equityEvoChart"></canvas>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <!-- ── Villain Section ── -->
+            <div class="range-section villain-section">
+                <div class="section-title">
+                    👤 Villain
+                    <div class="mode-btn-group">
+                        <button class="mode-btn active" id="villainModeRange"
+                            onclick="setMode('villain', 'range')">Range</button>
+                        <button class="mode-btn" id="villainModeHand" onclick="setMode('villain', 'hand')">Main</button>
+                    </div>
+                </div>
+
+                <div class="range-controls">
+                    <button class="btn small" onclick="selectPresetRange('villain', 'premium')">QQ+,AK</button>
+                    <button class="btn small" onclick="selectPresetRange('villain', 'value')">JJ+,AQ+</button>
+                    <button class="btn small" onclick="selectPresetRange('villain', 'broadways')">Broadways</button>
+                    <button class="btn small" onclick="selectPresetRange('villain', 'suited_connectors')">Connecteurs
+                        Assortis</button>
+                    <button class="btn small" onclick="selectPresetRange('villain', 'pp')">PP</button>
+                    <button class="btn small" onclick="selectPresetRange('villain', 'all')">Tout</button>
+                    <button class="btn small clear-btn" onclick="clearRange('villain')">✕ Clear</button>
+                </div>
+
+                <!-- Position presets -->
+                <div class="range-controls position-presets" id="villainPositionContainer">
+                    <!-- Généré dynamiquement par JS -->
+                </div>
+
+                <!-- Range import/export -->
+                <div class="range-import-export">
+                    <div class="import-row">
+                        <input type="text" id="villainRangeImport" class="range-text-input"
+                            placeholder="AA, KK, AKs, QQ+, 88-TT..." onfocus="showExportInInput('villain')">
+                        <button class="btn small" onclick="importRange('villain')" title="Importer">📥</button>
+                        <button class="btn small" id="villainExportBtn" onclick="exportRangeToClipboard('villain')"
+                            title="Copier range">📋</button>
+                    </div>
+                </div>
+
+                <!-- Range matrix (default mode) -->
+                <div id="villainMatrixSection">
+                    <div class="range-matrix" id="villainMatrix"></div>
+                    <div style="text-align:center; margin-top:4px;">
+                        <button class="btn small" id="villainHotnessBtn" onclick="toggleHotness('villain')"
+                            title="Afficher l'effet de retrait de chaque main">🔥 Hotness</button>
+                    </div>
+                </div>
+
+                <!-- Specific hand mode (hidden by default) -->
+                <div id="villainSpecificHand" style="display:none;">
+                    <div class="specific-hand-panel">
+                        <div class="specific-hand-display" id="villainHandDisplay">
+                            <span style="color:var(--text-faint);">Sélectionnez 2 cartes</span>
+                        </div>
+                        <div class="specific-hand-grid" id="villainHandGrid"></div>
+                        <div style="text-align:center; margin-top:8px;">
+                            <label class="blocker-toggle"
+                                title="Quand actif, vos 2 cartes bloquent automatiquement les combos adverses qui les contiennent (effet bloqueur)."
+                                onclick="toggleBlocker('villain')">
+                                <input type="checkbox" id="villainBlockerCheckbox" onclick="event.stopPropagation()"
+                                    onchange="toggleBlocker('villain')" style="pointer-events:none;">
+                                <span id="villainBlockerLabel">🔒 Bloqueur actif</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="range-slider-container">
+                    <input type="range" id="villainSlider" class="range-slider" min="0" max="100" value="0"
+                        oninput="updateRangeBySlider('villain', this.value)">
+                    <div class="slider-label">
+                        <span>0%</span>
+                        <span id="villainSliderValue">0%</span>
+                        <span>100%</span>
+                    </div>
+                </div>
+
+                <div class="range-info">
+                    <div class="range-info-item">
+                        <span>Combos:</span>
+                        <span class="range-info-value" id="villainCombos">0</span>
+                    </div>
+                    <div class="range-info-item">
+                        <span>% des mains:</span>
+                        <span class="range-info-value" id="villainPercent">0%</span>
+                    </div>
+                </div>
+
+                <div class="stats-section">
+                    <div class="stats-tabs">
+                        <button class="stats-tab active" onclick="switchStatsTab(event, 'villain', 'stats')">📊
+                            Stats</button>
+                        <button class="stats-tab" onclick="switchStatsTab(event, 'villain', 'graph')">📈
+                            Graphique</button>
+                    </div>
+                    <div class="stats-content active" id="villainStatsContent">
+                        <div class="stats-title"
+                            style="display:flex; align-items:center; justify-content:space-between;">
+                            <span>Composition de la range</span>
+                            <button id="villainChartSortBtn" class="chart-sort-btn"
+                                onclick="toggleChartSort('villain')">🔀 Trier par %</button>
+                        </div>
+                        <div class="stats-grid" id="villainStats">
+                            <div style="padding: 10px; text-align: center; color: var(--text-faint);">Sélectionnez une
+                                range et un board</div>
+                        </div>
+                    </div>
+                    <div class="stats-content" id="villainGraphContent">
+                        <div class="chart-container">
+                            <canvas id="villainChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="villainCombosDisplay" class="combos-display"></div>
+            </div>
+
+        </div><!-- /main-layout -->
+    </div><!-- /app-container -->
+
+    <!-- ═══ Modal ═══ -->
+    <div class="modal" id="comboModal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <span class="modal-title" id="modalTitle"></span>
+                <span class="close" onclick="document.getElementById('comboModal').style.display='none'">&times;</span>
+            </div>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- ═══ Range Editor Modal ═══ -->
+    <div class="modal" id="rangeEditorModal" onclick="closeRangeEditor(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <span class="modal-title">Éditeur de Ranges</span>
+                <span class="close"
+                    onclick="document.getElementById('rangeEditorModal').style.display='none'">&times;</span>
+            </div>
+            <div id="rangeEditorBody">
+                <div class="range-editor-header-select">
+                    <label class="editor-label">Charger une range existante</label>
+                    <select id="rangeEditorSelect" class="range-select-dropdown" onchange="loadRangeToEditor()">
+                        <option value="">Sélectionner...</option>
+                    </select>
+                </div>
+                <div class="editor-form-group">
+                    <label class="editor-label">Position / Nom</label>
+                    <input type="text" id="rangeEditorName" class="editor-input"
+                        placeholder="Nom de la range (ex: UTG, Custom A...)">
+                </div>
+                <div class="editor-form-group">
+                    <label class="editor-label">Mains (séparées par des virgules)</label>
+                    <textarea id="rangeEditorContent" class="editor-textarea" placeholder="AA, KK, AKs..."></textarea>
+                </div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 5px;">
+                    Astuce : Sélectionnez des mains dans la matrice principale puis cliquez ci-dessous pour les copier.
+                </div>
+                <button class="btn small" onclick="copyCurrentRangeToEditor()">📋 Copier depuis la sélection
+                    actuelle</button>
+
+                <div class="editor-actions">
+                    <button class="btn" style="background: #ef4444; color: white; border: none;"
+                        onclick="deleteCustomRange()" id="deleteRangeBtn">Supprimer</button>
+                    <button class="btn"
+                        onclick="document.getElementById('rangeEditorModal').style.display='none'">Annuler</button>
+                    <button class="btn" style="background: var(--hero-color); color: white; border: none;"
+                        onclick="saveCustomRange()">Sauvegarder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div class="loading-text">Calcul en cours...</div>
+            <div class="loading-progress" id="loadingProgress"></div>
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progressBarFill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ Scripts (order matters) ═══ -->
+    <script src="config.js"></script>
+    <script src="engine.js"></script>
+    <script src="ui.js"></script>
+    <script src="app.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0049)https://www.flopzilla.com/oldwebsite/written.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Flopzilla: Written manual</title>
+		<meta name="description" content="Written manual for Flopzilla">
+		<meta name="keywords" content="Flopzilla, manual, written">
+		<meta name="language" content="english">
+    <meta name="robots" content="index, follow"> 
+                
+		<link href="./Flopzilla_ Written manual_files/reset.css" rel="stylesheet" type="text/css">
+        <link href="./Flopzilla_ Written manual_files/styles.css" rel="stylesheet" type="text/css">		
+
+		<script type="text/javascript" src="./Flopzilla_ Written manual_files/jquery-1.7.1.min.js"></script>				
+
+		<script type="text/javascript">						
+			// <![CDATA[
+			
+			$(function() {				
+			})
+			// ]]>
+		</script>
+    </head>
+    <body>
+		<div class="wrapper">
+			<div id="header">
+				<div id="logo">
+					<a href="https://www.flopzilla.com/oldwebsite/index.html"><img src="./Flopzilla_ Written manual_files/logo.jpg" alt="logo"></a>
+				</div>
+				<!-- Menu -->
+				<div id="menu">
+					<ul>
+						<li>
+							<a href="https://www.flopzilla.com/oldwebsite/index.html" class="active">
+								<span class="menu_left"></span>
+								<span class="menu_center">Home</span>								
+								<span class="menu_right"></span>
+							</a>
+						</li>
+						<li>
+							<a href="https://www.flopzilla.com/oldwebsite/download.html">
+								<span class="menu_left"></span>
+								<span class="menu_center">Download</span>								
+								<span class="menu_right"></span>
+							</a>
+						</li>
+						<li>
+							<a href="https://www.flopzilla.com/oldwebsite/registration.html">
+								<span class="menu_left"></span>
+								<span class="menu_center">Purchase</span>								
+								<span class="menu_right"></span>
+							</a>
+						</li>
+						<li>
+							<a href="https://www.flopzilla.com/oldwebsite/contact.html">
+								<span class="menu_left"></span>
+								<span class="menu_center">Contact</span>								
+								<span class="menu_right"></span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<!-- End of Menu -->
+			</div>
+			<div id="content_wrapper">
+				<div id="content_area_inner">
+				
+				<h1 class="subblue">Flopzilla written manual</h1>
+				<h3 class="subblue">The main interface</h3><br>
+				<p>The main interface of Flopzilla consists out of three sections:<br><br>
+				<strong>1)</strong>&nbsp;<u>Starting hands</u>: Here you can enter a range.&nbsp;<br>
+				<strong>2)</strong> <u>Board</u>: Here you can enter a board, consisting out of 3, 4 or 5 cards.<br>
+				<strong>3)</strong>&nbsp;<u>Statistics</u>: This is where the output is displayed. Here Flopzilla will tell you how often all possible hand values occur. <br><br>
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/screenshot1.png"></p><br><br><br><br>
+
+				<h3 class="subblue">1) The "Starting hands" section</h3>
+				<p><br>
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/matrix.png">
+				<br><br>
+				In this section you can enter the range for which you want to know how it hits a certain board.<br><br>
+				<strong>A) The slider</strong><br>
+				With this slider you can quickly select a range. There's also a negative slider to remove a top X% portion of the range. To increase/decrease the position of the slider by one pip, click to it's left/right. You can also click on the X% part of the slider <strong>(B)</strong> to enter a top % manually.<br>
+				<br>
+				<strong>C) The active hand ranking</strong><br>
+				With this dropdown you can select the desired hand ranking system that is used by the slider <strong>(A)</strong>.<br>
+				<br>
+				<strong>D) Importing/exporting a range in text format</strong><br>
+				This button will bring up a dialog that will give you a text string. This string can be exported to other software. Also, you can enter a desired range here.</p>
+				<p><strong>E) Applying weights to starting hands</strong><br>
+				You can use these 4 buttons to add weights to starting hands. The standard setting is "no weight". However, if you click on the '1', '2' or '3' button you will enter weight mode. Every starting hand you select will get the corresponding weight. To change the weight of '1', '2' or '3' you can use the slider to the right of the matrix <strong>(F)</strong>.<br>
+				<br>
+				<strong>Tip</strong>:<br> To select multiple starting hands, you can save yourself a lot of clicking by selecting a starting hand, keeping your mouse button pressed and moving over everything you want to select.</p>
+					
+				<br><br><br>
+				<h3 class="subblue">2) The board section</h3><br>
+				<p>In this section you can enter the board. If you enter 3 cards, they will be considered as the flop. If you enter a fourth card, it will be considered the turn (a 'T' will be displayed in its upper right). A river card will be indicated with an 'R'.<br><br> 
+				<strong>Toggling between flop/turn/river</strong><br>
+				To toggle between the flop, turn or river, you can use the arrow keys to the left/right of the board name. Or, press the left/right arrow keys on your keyboard.<br><br>
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/turn.png">
+				<br><br>
+				<strong>Preflop calculations</strong><br>
+				If you want to know how a range hits an undefined board (averaged over all possible flops) then all you need to do is just leave the board empty
+				and enter a preflop range. Whenever a change is made to the preflop range Flopzilla will detect this and automatically
+				calculate how this range hits the undefined board.<br><br>
+				
+				</p><h3 class="subblue">3) The statistics section</h3><br>
+				<p>The statistics section consists out of three parts:<br>
+				- Made hands (<span class="subblue">blue</span>) <br>
+				- Draws (<span style="color: #00ff00;">green</span>) <br>
+				- Combinations of made hands and draws (<span style="color: #800080;">purple</span>) <br>
+				<br>
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/statistics.png">
+				<br><br>
+				<strong>Important: Double-counting</strong><br>
+				The three types of statistics are computed independently of each other. So this means that a statistic can be double-counted. For example if you hold top pair+flushdraw this will be considered as top pair in the made hands section, flushdraw in the draws section and flushdraw+pair in the combo section. <u>So just because you don't hold a made hand in the first section does not mean you don't hold (for example) a flushdraw in the second section. All it means is that you don't hold a made hand.</u></p><br><br>
+
+				<h3 class="subblue">3a) The statistics section - Preflop</h3><br>
+				<p>If no board cards are entered, clicking on the Flopzilla logo will prompt the software to calculate how the given range will hit an undefined flop (averaged over all possible flops).<br><br> 
+				<strong>Telling how often the range has "hit"</strong><br>
+				Some of the statistics will have a <span class="subred">red</span> checkmark in front of them. This checkmark means that you consider this statistic as the range having "hit" the flop. To add/remove such a checkmark, click on the statistic's name. At the bottom of the "Statistics" section is a text that says how often the range has "hit" in total. This number will tell you which percentage of the starting hands have passed through <u>at least</u> one statistic with a checkmark in front of it.<br><br>
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/checkmark.png">
+				<br>
+				<br>
+				<strong>The absolute/cumulative toggle button</strong><br>
+				On top of the "Statistics" section is a button that says "absolute". If you click it, you will switch to "cumulative" mode. In this mode the software displays the chance of holding a certain hand <u>or better</u>.</p>
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/cumulative.png"><br><br>
+				<p><strong>Selecting/deselecting multiple statistics<br></strong> If you want to select/deselect multiple statistics, click on the text section of one of the statistics, hold your mouse button pressed and move over everything you want to select/deselect.</p>
+				<br><br>
+
+				<h3 class="subblue">3b) The statistics section - Postflop</h3><br>
+				<p>If at least a flop is entered, then instead of checkmark in front of the statistics, there's now <span class="subblue">blue</span> filter symbols. These filter symbols work the same as the checkmarks in the preflop section. They decide which hands are allowed to pass through to the output field. Again, to add/remove such a filter symbol, left-click the statistic's name. To select multiple stats, left-click, hold your mouse pressed, and move over everything you want to (de)select. <br>
+				<br><img border="0" alt="" src="./Flopzilla_ Written manual_files/postflop.png"><br>
+				<br>
+				<strong>Turning the filters ON/OFF</strong><br>
+				At the bottom of the statistics section there's a button that will allow you to turn the filters ON/OFF. On the button the percentage of hands that will be passing through the filters (after they've been turned ON) is displayed.</p>
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/filterbutton.png"><br>
+				<br>
+				<p><strong>Bonus hidden statistic: Backdoor flush draws<br>
+				</strong>If you also want to include one card backdoor flushdraws (on two flush flops), turn on <em>Settings-&gt;One crd bckdr flushdraw on 2flush flops. </em><br>Two new stats will be added:<br>
+				- 1 crd bdfd high<br>
+				- 1 crd bdfd low<br><br>
+				The first means that the highest card is the one making the backdoor flushdraw. 
+				The other one means it's the lowest.</p>
+
+				<br><br><br>
+				<h3 class="subblue">Getting more information on a statistic</h3>
+				<p><strong>Mouse over a stat to see its hands light up in purple</strong><br>
+				If you mouse over the bar of a statistic, then the starting hands that pass through it will light up in purple.</p><br>
+
+				<strong>If you mouse over a statistic the "Statistics" section will adapt</strong><br>
+				Also, if you mouse over a statistic, the "Statistics" display will now only filter hands that apply to thát statistic. In this manner you'll be able to see the overlap between different statistics. <br><br>
+				<i>For example: In the pic below, the range contains "top pair" 27.7% of the time. These hands are specifically A9-T9,98,96s. They are displayed in purple in the matrix. Of the 27.7% of "top pair" hands, 2.58% are ALSO a flushdraw.</i><br><br>
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/zoomin.png"><br><br>
+
+
+				<br><br><strong>Overlap: Which hands are in the overlap?</strong><br>				
+				If you want to see the overlap between (for example) top pair and flushdraws, then mouse over either one of them and right-click. This will fix the popup and you will be able to move your mouse without the statistic being deselected. Now mouse over the other statistic. The overlap between the two will be shown by a black line around the hands that are in the overlap.<br><br>
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/overlap.png"><br>	
+				<i>The hands that are both a flushdraw ánd top pair in the pic above are A9s-T9s,98s,96s.</i>
+
+
+				<br><br><strong>The "Statistics" section: The overlap matrix</strong><br>
+				Another way of seeing the overlap between statistics is by looking at the overlap matrix. This matrix is hidden below the normal interface. To bring it up, enlarge Flopzilla's window downwards. It shows how, when you hold statistic X, how likely it is that you are álso holding Statistic Y. So for example, in the pic below, when you hold top pair, in 9.33% of the cases you will also be holding a flushdraw.<br>
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/overlapmatrix.png"><br>			
+				<i>To see whích hands specifically are in the overlap, mouse over the 9.33% value in the matrix.The overlap will light up in purple in the starting hand matrix.</i>
+
+				<br><br><strong>The "Statistics" section: Text output</strong><br>
+				Press <span class="subblue">Ctrl+T</span> for a dialog with the statistics that are displayed in the "Statistics" section.<br>
+				Press <span class="subblue">Ctrl+Alt+T</span> for a text string with all combos of whatever is displayed in the "Statistics" section (this only works postflop). Such a string can then, for example, be exported to Pokerstove or Slice.<br> <i>Example output would be <span class="subblue">"3c3h,3d3h,3d3c,7c7h,7d7h,7d7c,Ts9s,KdKc,KsKc,KsKd,AsTs"</span>.</i><br>
+
+				<br><br>
+				<h3 class="subblue">Combo mode (TAB)</h3>
+				In standard mode all output is displayed in the form of percentages.<br> Press <span class="subblue">TAB</span> to toggle to displaying everything in combos.<br><br>
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/tab.png"><br><br>									
+
+
+				<br><br>
+				<h3 class="subblue">Equity and the chance of holding the best hand</h3><br>
+				If you enter two specific holecards in the dead cards section, they will be considered as a starting hand and their equity versus the range will be displayed in the small box on the lower right.<br><br> 
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/equity.png"><br><br>			
+				Below that, the chance of having the best hand <u>right now</u> is shown. A funny additional property of these "best hand" lines is that if you mouse over them, the relevant hands will light up in purple in the starting hand matrix. Also, at the bottom of the popup a breakdown in combos is displayed.<br><br>
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/handisbest.png"><br><br>
+
+
+				<br><br>
+				<h3 class="subblue">Selecting suits in the starting hand matrix</h3><br>
+				To enter suits in the starting hand matrix, you'll need the Suit Selection Menu, which is hidden below the starting hand matrix. To bring it up, enlarge Flopzilla's window downwards.<br><br>
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/suitselect.png"><br><br>									
+				A total of 3 suit selection boxes are available there, allowing you to enter a maximum of 3 suit filters. To activate a suit box, press <i>Apply!</i>. After that, click on all hands that you want to apply that suit filter to. To select multiple hands, keep your mouse pressed down and mouse over everything you want to select. To deselect a suit box again, press either <i>Apply!</i>, click anywhere outside of the matrix or move your mouse out of the starting hand area.<br><br>
+
+
+				<br><br><br>
+				<h2><span class="subblue">Advanced filtering options</span></h2>
+				While the standard filtering options mentioned in the first section of this manual will do in many cases, there's some additional options available to customize the filters a bit more. 
+				In this second section these additional options will be discussed in greater detail.
+
+				<br><br>
+				<h3 class="subblue">The delete filter</h3>
+				Instead of the standard filter symbol in front of a statistic it's also possible to use a "delete" symbol. 
+				To toggle between <span class="subblue">filter</span> and <span class="subred">delete</span> mode you can either press the mode button in the upper left of the "Statistics" section or press the space bar. 
+				In delete mode, everything that is accepted by the statistic will be deleted from the range.<br><br>
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/delete.png"><br><br>									
+
+				<strong>Example:</strong><br>
+				So what's the difference between the delete filter and nót adding a filter at all? 
+				Let's consider AhKh on a KcQhJh board, or in other words "top pair+flushdraw".<br><br>
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/deleteexample.png"><br><br>									
+				 
+				<i>A) There is a blue filter symbol in front of both "top pair" and "flushdraw". Therefore, AhKh will pass through the filters.<br>
+				B) There is a delete filter symbol in front of "top pair", but a blue filter symbol in front of flushdraw. Although AhKh would have passed through the "flushdraw" filter, it is deleted by the <span class="subred">delete</span> filter. AhKh will therefore not pass through the filters at all.<br>
+				C) "Top pair" has no filter symbol in front of it at all. However, "flushdraw" doés. For that reason, AhKh will pass through the filters. Although it did not get "permission" from the "top pair" statistic, it díd get it from the "flushdraw" statistic.<br><br> 
+				</i><strong>To summarize:<br>It only takes one statistic to give a hand permission to pass, as long as it's not deleted by another one.</strong>
+
+				<br><br><br><br>
+				<h3 class="subblue">Adding weights to statistics</h3><br>
+				In some cases you may want to apply a weight to a statistic's filter. 
+				In order to do so, move your mouse over the percentage bar of the statistic. 
+				This will bring up its popup. At the right of the popup a weight slider is present (this only applies if a <span class="subblue">blue filter</span> is applied though).<br> <br>
+				To alter the weight that is used you can:<br> 
+				- use the up/down arrow keys on your keyboard<br>
+				- use the scroller on your mouse<br>
+				- right-click to fix the popup and then move the slider<br><br>
+
+				A small yellow text box to the right of the name of the statistic will be drawn to inform you that a weight is applied to it.<br><br>
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/weights.png"><br><br>
+
+
+				<br><br><br>
+				<h3 class="subblue">Applying custom filters to individual starting hands</h3><br>
+				In some cases you may want to apply a filter to one starting hand in a statistic, but not to another one. 
+				To change the filters for an individual starting hand in a statistic, mouse over the statistic's bar and right-click to fix the popup. 
+				At the bottom of the popup the symbols for "filter", "delete" and "no filter" will appear.
+				You can use these to apply custom settings to individual hands. 
+				To accept your settings, press "Accept", press Enter or left-click anywhere in the "Statistics" section.<br><br> 
+				A small filter symbol to the right of the statistic's name will inform you that a customized filter is in use. 
+				To remove the custom filter at a later point, just click on this symbol. Or, you can also press Alt+S to remove ALL custom filters.<br><br>
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/custom.png"><br><br>
+
+
+				<br><br>
+				<h3 class="subblue">Applying custom filters in case of overlap</h3><br>
+				In some cases you may want to apply a filter to the overlap between two statistics.
+				For example, let's say you want to filter both top pair OR gutshot, but delete everything that's top pair AND a gutshot. 
+				Now, of course, it's already possible to do this manually with the custom filters, but it's going to take a lot of effort. 
+				For that reason a shortcut has been added.<br><br> 
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/entireoverlap.png"><br><br>
+				Here's how to set a custom filter for the overlap between statistics:<br>
+				- Move your mouse over the flushdraw (NOT over "top pair")<br>
+				- Rightclick to fix the popup. You can now move your mouse freely without "flushdraw" being deselected<br>
+				- Now mouse over "gutshot"; the overlapping hands will get a black line around them<br>
+				- Press '<span class="subred">B</span>' to apply the "delete" filter to the entire overlap
+				
+
+				<br><br><br><br>
+				<h2><span class="subblue">Saving and loading</span></h2><br>
+				There's two ways of saving and loading a Flopzilla setup:<br><br>
+				<strong>Save to file / load from file</strong><br>
+				To save/load to/from file, go to Save/load in the menu and select "Open ..." or "Save".<br><br>
+				<strong>Save to text format / load from text format</strong><br>
+				An alternative way of storing a setup is through a text format.<br>
+				This text format can easily be used in e-mails or forums in discussions with other users.<br><br>
+				To export in text format, select "Save/load-&gt;Forum/e-mail output" from the menu.<br>
+				You'll get a text block that can be copy pasted into e-mails and forums. <br><br>
+				To load such a text block from another user, select "Save/load-&gt;Import forum/e-mail text block" and paste the text block into the dialog that comes up.<br><br>
+				Here's an example of such&nbsp;a textblock:<br>
+				<br><span class="subblue">
+
+	
+				[Flopzilla v1.5.8]<br>
+				[Use Ctrl+I to import into Flopzilla]<br>
+				[www.cardrunners-ev-calculator.com/Flopzilla.html ]<br>
+				[uJNUZCWTkwqDEudWeaOBE1O3WcgOdN+zME4MsmV6fdPmR0pb6A]<br>
+				[Jv0Oyaa3VS5qzLqiIdhk6NGZNLU3goaIREfShFnLIKKktdiloe]<br>
+				[5sUsBqStfl73revmQFEXlvjeA+wP5rmx2CkQYQ25CiMRBENlhT]<br>
+				[y6Nj7ZaWBtmIf4+LHQVkBCmIQyoZm271pn82cdscXiWCXhMbbg]<br>
+				[RWqLTiAABRvoeUPggO+dYWmGZq+3H4karhQsQYCN3tUbrEnqOi]<br>
+				[ulHRy3OdS]<br></span>
+
+				<br><br><br><br>
+				<h2><span class="subblue">The hotness tool</span></h2><br>
+				The hotness tool is a hidden tool that shows how a next board card will affect the equity. To bring it up, enlarge Flopzilla's window to the right.<br><br> 
+				<img border="0" alt="" src="./Flopzilla_ Written manual_files/hotnes.png"><br><br>									
+				The tool requires:<br>
+				- A flop<br>
+				- Two cards in the dead card section (these represent a starting hand; see the section above on equity)<br><br>
+				The hotness tool will now display how each next turn will affect the equity of the starting hand versus the range. Here, <span class="subred">red</span> represents 100% equity for the range and <span style="color: #00ff00;">green</span> means 100% equity for the hand. To see the equity for a specific card, mouse over it. A small popup will show the equity for that card.<br><br>
+				To the right of the color coded cards, all cards are ordered according to their equity. The top card is the absolute best one for the range (Jh in the pic above). The bottom card is the best card for the hand (2s). The red line represents the current equity for the range, which is 71.32%.<br>
+			
+
+
+				</div>
+			</div>
+			<!-- Footer -->
+			<div id="footer">
+				<div id="footer_copyrights">
+					<p>Copyright © 2010 Flopzilla</p>
+				</div>
+				<div id="footer_designed_by">
+					<a href="http://icondesignlab.com/en/portfolio/websites/">Website design</a> by <a href="http://icondesignlab.com/">IconDesignLAB.com</a>
+				</div>
+			</div>
+			<!-- End of footer -->
+		</div>
+				
+    
+</body></html>
